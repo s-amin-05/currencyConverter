@@ -12,14 +12,15 @@ const selectTo = currencyList[1]
 const inputBox = document.querySelector('#input_box');
 const outputBox = document.querySelector('#output_box');
 
-
 let currencyObj = {};
 
-//A function to add all currencies as options using API
+//A function to add all currency codes as options using API
 
 (async ()=> {
+
   let response = await fetch(URL)
   currencyObj = await response.json()
+
   for (const key in currencyObj) {
 
     const currencyOption = document.createElement('option')
@@ -39,9 +40,8 @@ let currencyObj = {};
   }
 })();
 
-//Part2: Accessing currency exchange values and using them
 
-
+//Part2: Accessing currency exchange rate from the API and using them
 
 const convertCurrency = async () =>{
   
@@ -86,4 +86,17 @@ inputBox.addEventListener('input', (e)=>{
 )
 
 
+// Swapping the currency codes of both the select tags
 
+const swapButton = document.querySelector('#swap_button')
+
+swapButton.addEventListener('click', ()=>{
+  
+  let temp = selectFrom.value
+  selectFrom.value = selectTo.value
+  selectTo.value = temp;
+
+  //Calling function to convert currency after swapping the currencies
+  convertCurrency()
+
+})
